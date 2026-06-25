@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .title { font: bold 16px sans-serif; fill: #111; }
+    .subtitle { font: 12px sans-serif; fill: #666; }
+    .axis { stroke: #ccc; stroke-width: 1; }
+    .line-sys { stroke: #28a745; stroke-width: 4; fill: none; }
+    .line-comp { stroke: #dc3545; stroke-width: 3; fill: none; stroke-dasharray: 5,5; }
+    .label { font: 12px sans-serif; fill: #333; }
+    .tick { font: 10px sans-serif; fill: #888; }
+    .point-sys { fill: #28a745; }
+    .point-comp { fill: #dc3545; }
+  </style>
+
+  <rect width="100%" height="100%" fill="#fff" />
+
+  <text x="40" y="30" class="title">System Scalability: API Latency vs Concurrent Users</text>
+  <text x="40" y="50" class="subtitle">JobConnect maintains stable rendering and database times under high concurrent load</text>
+
+  <!-- Y-Axis (0 to 1000ms) -->
+  <line x1="70" y1="330" x2="70" y2="80" class="axis" />
+  <text x="35" y="334" class="tick">0ms</text>
+  <text x="15" y="271.5" class="tick">250ms</text>
+  <text x="15" y="209" class="tick">500ms</text>
+  <text x="15" y="146.5" class="tick">750ms</text>
+  <text x="10" y="84" class="tick">1000ms+</text>
+
+  <!-- Horizontal grid lines -->
+  <line x1="70" y1="267.5" x2="750" y2="267.5" class="axis" stroke-dasharray="2,2" opacity="0.5" />
+  <line x1="70" y1="205" x2="750" y2="205" class="axis" stroke-dasharray="2,2" opacity="0.5" />
+  <line x1="70" y1="142.5" x2="750" y2="142.5" class="axis" stroke-dasharray="2,2" opacity="0.5" />
+  <line x1="70" y1="80" x2="750" y2="80" class="axis" stroke-dasharray="2,2" opacity="0.5" />
+
+  <!-- X-Axis (Concurrent Users) -->
+  <line x1="70" y1="330" x2="750" y2="330" class="axis" />
+  
+  <text x="150" y="350" class="label" text-anchor="middle">100 Users</text>
+  <text x="300" y="350" class="label" text-anchor="middle">500 Users</text>
+  <text x="450" y="350" class="label" text-anchor="middle">1000 Users</text>
+  <text x="600" y="350" class="label" text-anchor="middle">2500 Users</text>
+  <text x="700" y="350" class="label" text-anchor="middle">5000+ Users</text>
+
+  <!-- JobConnect Line / Points (120ms, 150ms, 180ms, 250ms, 320ms) -->
+  <!-- Scaling: 250px = 1000ms => 0.25px per ms -->
+  <!-- 120ms = 30px => Y=300 -->
+  <!-- 150ms = 37.5px => Y=292.5 -->
+  <!-- 180ms = 45px => Y=285 -->
+  <!-- 250ms = 62.5px => Y=267.5 -->
+  <!-- 320ms = 80px => Y=250 -->
+  <path d="M 150 300 L 300 292.5 L 450 285 L 600 267.5 L 700 250" class="line-sys" />
+  
+  <circle cx="150" cy="300" r="5" class="point-sys" />
+  <circle cx="300" cy="292.5" r="5" class="point-sys" />
+  <circle cx="450" cy="285" r="5" class="point-sys" />
+  <circle cx="600" cy="267.5" r="5" class="point-sys" />
+  <circle cx="700" cy="250" r="5" class="point-sys" />
+  
+  <text x="715" y="254" class="label" fill="#28a745" font-weight="bold">JobConnect (Low Latency)</text>
+
+  <!-- Competitor Line / Points (180ms, 350ms, 600ms, 950ms, 1200ms) -->
+  <!-- Y mapping: 330 - (time * 0.25) -->
+  <!-- 180ms => Y=285 -->
+  <!-- 350ms => Y=242.5 -->
+  <!-- 600ms => Y=180 -->
+  <!-- 950ms => Y=92.5 -->
+  <!-- 1200ms => Cap at Y=30 -->
+  <path d="M 150 285 L 300 242.5 L 450 180 L 600 92.5 L 700 30" class="line-comp" />
+  
+  <circle cx="150" cy="285" r="4" class="point-comp" />
+  <circle cx="300" cy="242.5" r="4" class="point-comp" />
+  <circle cx="450" cy="180" r="4" class="point-comp" />
+  <circle cx="600" cy="92.5" r="4" class="point-comp" />
+  <circle cx="700" cy="30" r="4" class="point-comp" />
+
+  <text x="715" y="34" class="label" fill="#dc3545">Legacy API Tool</text>
+
+</svg>

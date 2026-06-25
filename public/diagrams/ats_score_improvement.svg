@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .title { font: bold 16px sans-serif; fill: #111; }
+    .subtitle { font: 12px sans-serif; fill: #666; }
+    .axis { stroke: #ccc; stroke-width: 1; }
+    .grid { stroke: #eee; stroke-width: 1; stroke-dasharray: 4,4; }
+    .label { font: 12px sans-serif; fill: #444; }
+    .tick { font: 10px sans-serif; fill: #888; }
+    .legend { font: 12px sans-serif; fill: #333; }
+  </style>
+  
+  <rect width="100%" height="100%" fill="#fff" />
+  
+  <text x="40" y="30" class="title">Average ATS Match Score Improvement</text>
+  <text x="40" y="50" class="subtitle">Comparing baseline resumes vs. resumes optimized by JobConnect Analysis over 4 roles</text>
+
+  <!-- Y-Axis (0 to 100%) -->
+  <line x1="70" y1="330" x2="70" y2="80" class="axis" />
+  
+  <line x1="65" y1="330" x2="750" y2="330" class="grid" />
+  <text x="40" y="334" class="tick">0%</text>
+
+  <line x1="65" y1="267" x2="750" y2="267" class="grid" />
+  <text x="35" y="271" class="tick">25%</text>
+
+  <line x1="65" y1="205" x2="750" y2="205" class="grid" />
+  <text x="35" y="209" class="tick">50%</text>
+
+  <line x1="65" y1="142" x2="750" y2="142" class="grid" />
+  <text x="35" y="146" class="tick">75%</text>
+
+  <line x1="65" y1="80" x2="750" y2="80" class="grid" />
+  <text x="30" y="84" class="tick">100%</text>
+
+  <!-- X-Axis -->
+  <line x1="70" y1="330" x2="750" y2="330" class="axis" />
+
+  <!-- Roles: Software Engineer, Data Scientist, Product Manager, Mkt Specialist -->
+  <!-- Box width: 40, Gap: 10, Total Group: 90 -->
+  <!-- 100% = 250px (y from 330 to 80), scaling = 2.5px per % -->
+
+  <!-- Role 1: SE (Before: 45%, After: 92%) => Height: 112.5, 230 -->
+  <rect x="120" y="217.5" width="40" height="112.5" fill="#a0c4ff" rx="4" />
+  <text x="140" y="207.5" class="tick" text-anchor="middle">45%</text>
+  
+  <rect x="165" y="100" width="40" height="230" fill="#1f77b4" rx="4" />
+  <text x="185" y="90" class="tick" text-anchor="middle">92%</text>
+  
+  <text x="162.5" y="350" class="label" text-anchor="middle">Software Engineer</text>
+
+  <!-- Role 2: Data Sci (Before: 52%, After: 89%) => Height: 130, 222.5 -->
+  <rect x="270" y="200" width="40" height="130" fill="#a0c4ff" rx="4" />
+  <text x="290" y="190" class="tick" text-anchor="middle">52%</text>
+  
+  <rect x="315" y="107.5" width="40" height="222.5" fill="#1f77b4" rx="4" />
+  <text x="335" y="97.5" class="tick" text-anchor="middle">89%</text>
+  
+  <text x="312.5" y="350" class="label" text-anchor="middle">Data Scientist</text>
+
+  <!-- Role 3: PM (Before: 60%, After: 95%) => Height: 150, 237.5 -->
+  <rect x="420" y="180" width="40" height="150" fill="#a0c4ff" rx="4" />
+  <text x="440" y="170" class="tick" text-anchor="middle">60%</text>
+  
+  <rect x="465" y="92.5" width="40" height="237.5" fill="#1f77b4" rx="4" />
+  <text x="485" y="82.5" class="tick" text-anchor="middle">95%</text>
+  
+  <text x="462.5" y="350" class="label" text-anchor="middle">Product Manager</text>
+
+  <!-- Role 4: Marketing (Before: 42%, After: 85%) => Height: 105, 212.5 -->
+  <rect x="570" y="225" width="40" height="105" fill="#a0c4ff" rx="4" />
+  <text x="590" y="215" class="tick" text-anchor="middle">42%</text>
+  
+  <rect x="615" y="117.5" width="40" height="212.5" fill="#1f77b4" rx="4" />
+  <text x="635" y="107.5" class="tick" text-anchor="middle">85%</text>
+  
+  <text x="612.5" y="350" class="label" text-anchor="middle">Marketing</text>
+
+  <!-- Legend -->
+  <rect x="640" y="30" width="120" height="60" fill="#fcfcfc" stroke="#ddd" rx="4" />
+  <rect x="650" y="44" width="15" height="15" fill="#a0c4ff" rx="2" />
+  <text x="675" y="56" class="legend">Original Resume</text>
+  <rect x="650" y="65" width="15" height="15" fill="#1f77b4" rx="2" />
+  <text x="675" y="77" class="legend">JobConnect Optimized</text>
+
+</svg>

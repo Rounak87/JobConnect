@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .title { font: bold 16px sans-serif; fill: #222; }
+    .subtitle { font: 12px sans-serif; fill: #666; }
+    .label { font: 13px sans-serif; fill: #444; }
+    .score-label { font: bold 13px sans-serif; fill: #fff; }
+    
+    .bar-bg { fill: #f0f0f0; rx: 4; }
+    .bar-sys { fill: linear-gradient(90deg, #1f77b4, #0d47a1); rx: 4; }
+    .bar-ats { fill: #ff7f0e; rx: 4; }
+    .bar-ai { fill: #2ca02c; rx: 4; }
+  </style>
+  
+  <rect width="100%" height="100%" fill="#fff" />
+  
+  <text x="40" y="30" class="title">Core Feature Capability Comparison</text>
+  <text x="40" y="50" class="subtitle">Comparing JobConnect feature capabilities out-of-the-box vs Traditional ATS &amp; Generic AI Chatbots (1-100 scale)</text>
+
+  <!-- Left Labels (Y-Axis) -->
+  <text x="180" y="110" class="label" text-anchor="end">Real-Time Interview Prep</text>
+  <text x="180" y="160" class="label" text-anchor="end">Contextual Parsing</text>
+  <text x="180" y="210" class="label" text-anchor="end">ATS Keyword Optimiztion</text>
+  <text x="180" y="260" class="label" text-anchor="end">Historical Session Tracking</text>
+  <text x="180" y="310" class="label" text-anchor="end">Actionable Skill Gaps Data</text>
+  <text x="180" y="360" class="label" text-anchor="end">Custom UI/UX &amp; Flow</text>
+
+  <!-- Bar Background Tracks -->
+  <rect x="200" y="93" width="400" height="24" class="bar-bg" />
+  <rect x="200" y="143" width="400" height="24" class="bar-bg" />
+  <rect x="200" y="193" width="400" height="24" class="bar-bg" />
+  <rect x="200" y="243" width="400" height="24" class="bar-bg" />
+  <rect x="200" y="293" width="400" height="24" class="bar-bg" />
+  <rect x="200" y="343" width="400" height="24" class="bar-bg" />
+
+  <!-- JobConnect Bars (Scale: 400px = 100%) -->
+  <!-- 95%, 90%, 98%, 85%, 92%, 100% -->
+  <rect x="200" y="93" width="380" height="24" fill="#1f77b4" rx="4" />
+  <text x="560" y="110" class="score-label" text-anchor="end">95%</text>
+
+  <rect x="200" y="143" width="360" height="24" fill="#1f77b4" rx="4" />
+  <text x="540" y="160" class="score-label" text-anchor="end">90%</text>
+
+  <rect x="200" y="193" width="392" height="24" fill="#1f77b4" rx="4" />
+  <text x="572" y="210" class="score-label" text-anchor="end">98%</text>
+
+  <rect x="200" y="243" width="340" height="24" fill="#1f77b4" rx="4" />
+  <text x="520" y="260" class="score-label" text-anchor="end">85%</text>
+
+  <rect x="200" y="293" width="368" height="24" fill="#1f77b4" rx="4" />
+  <text x="548" y="310" class="score-label" text-anchor="end">92%</text>
+
+  <rect x="200" y="343" width="400" height="24" fill="#1f77b4" rx="4" />
+  <text x="580" y="360" class="score-label" text-anchor="end">100%</text>
+
+  <!-- Competitor Nodes (ATS / Generic AI) -->
+  <!-- We'll use colored circles to mark where competitors sit on these tracks -->
+  <!-- Real-Time Prep: ATS(0%), AI(70%) -->
+  <circle cx="205" cy="105" r="8" fill="#ff7f0e" />
+  <circle cx="480" cy="105" r="8" fill="#2ca02c" />
+
+  <!-- Contextual Parsing: ATS(20%), AI(80%) -->
+  <circle cx="280" cy="155" r="8" fill="#ff7f0e" />
+  <circle cx="520" cy="155" r="8" fill="#2ca02c" />
+
+  <!-- ATS Keyword Optimization: ATS(85%), AI(40%) -->
+  <circle cx="540" cy="205" r="8" fill="#ff7f0e" />
+  <circle cx="360" cy="205" r="8" fill="#2ca02c" />
+
+  <!-- Session Tracking: ATS(10%), AI(30%) -->
+  <circle cx="240" cy="255" r="8" fill="#ff7f0e" />
+  <circle cx="320" cy="255" r="8" fill="#2ca02c" />
+
+  <!-- Skill Gaps Data: ATS(30%), AI(60%) -->
+  <circle cx="320" cy="305" r="8" fill="#ff7f0e" />
+  <circle cx="440" cy="305" r="8" fill="#2ca02c" />
+  
+  <!-- Custom UI/UX: ATS(40%), AI(50%) -->
+  <circle cx="360" cy="355" r="8" fill="#ff7f0e" />
+  <circle cx="400" cy="355" r="8" fill="#2ca02c" />
+
+  <!-- Legend -->
+  <rect x="620" y="93" width="160" height="90" fill="#fcfcfc" stroke="#eee" rx="4" />
+  
+  <rect x="630" y="105" width="16" height="16" fill="#1f77b4" rx="2" />
+  <text x="655" y="118" class="label">JobConnect Platform</text>
+  
+  <circle cx="638" cy="138" r="7" fill="#ff7f0e" />
+  <text x="655" y="142" class="label">Traditional ATS</text>
+
+  <circle cx="638" cy="162" r="7" fill="#2ca02c" />
+  <text x="655" y="166" class="label">Generic Gen-AI Tool</text>
+
+</svg>

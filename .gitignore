@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+architecture.md
+archi1.png 
+archi2.png
+architecture_diagram_detailed.png 
+
