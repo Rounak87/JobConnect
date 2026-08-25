@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import connectToDatabase from "@/lib/mongodb";
 import User from "@/models/User";
+import { saveUserToFileDb } from "@/lib/fileDb";
 
 export async function POST(request) {
   try {
@@ -14,20 +15,27 @@ export async function POST(request) {
       );
     }
 
-    await connectToDatabase();
+    const userPayload = {
+      firebaseUid: uid,
+      email,
+      displayName: displayName || "Anonymous User",
+      photoURL: photoURL || null,
+    };
 
-    // Use findOneAndUpdate with upsert: true to either update existing or create new
-    const user = await User.findOneAndUpdate(
-      { firebaseUid: uid },
-      {
-        email,
-        displayName: displayName || "Anonymous User",
-        photoURL: photoURL || null,
-      },
-      { new: true, upsert: true }
-    );
-
-    return NextResponse.json({ success: true, user });
+    try {
+      await connectToDatabase();
+      const user = await User.findOneAndUpdate(
+        { firebaseUid: uid },
+        userPayload,
+        { new: true, upsert: true }
+      );
+      saveUserToFileDb(userPayload);
+      return NextResponse.json({ success: true, user });
+    } catch (dbErr) {
+      console.warn("[UsersAPI] MongoDB Atlas unavailable, saved user profile to local file DB.");
+      saveUserToFileDb(userPayload);
+      return NextResponse.json({ success: true, user: userPayload });
+    }
   } catch (error) {
     console.error("API /users error:", error);
     return NextResponse.json(

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { GoogleGenAI } from "@google/genai";
 import connectToDatabase from "@/lib/mongodb";
 import Analysis from "@/models/Analysis";
+import { computeATSScore } from "@/lib/scoring";
 import {
   Document,
   Packer,
@@ -460,6 +461,26 @@ export async function POST(request) {
     const doc = buildDocx(rewrittenData);
     const buffer = await Packer.toBuffer(doc);
 
+    // Compute ATS score on the REWRITTEN resume text for before/after comparison
+    const rewrittenText = [
+      rewrittenData.summary || "",
+      ...(rewrittenData.experience || []).flatMap(j => [j.title, j.company, ...(j.bullets || [])]),
+      ...(rewrittenData.skills || []),
+      ...(rewrittenData.projects || []).map(p => p.description || ""),
+    ].join(" ");
+    const atsAfter = computeATSScore(rewrittenText, jobDescription, true);
+
+    // Save the post-rewrite ATS score to DB
+    if (analysisId) {
+      try {
+        await connectToDatabase();
+        await Analysis.findByIdAndUpdate(analysisId, { atsScoreAfterRewrite: atsAfter });
+        console.log(`[Rewrite] ✓ Saved ATS after-score: ${atsAfter.total}/100`);
+      } catch (dbErr) {
+        console.error("[Rewrite] Failed to save atsScoreAfterRewrite:", dbErr);
+      }
+    }
+
     // Return as downloadable file
     const jobTitle = analysis?.jobTitle || "optimized";
     const filename = `resume_${jobTitle.replace(/[^a-zA-Z0-9]/g, "_").toLowerCase()}.docx`;
@@ -470,6 +491,8 @@ export async function POST(request) {
         "Content-Type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
         "Content-Disposition": `attachment; filename="${filename}"`,
         "X-Used-Model": usedModel || "unknown",
+        "X-ATS-Score-After": String(atsAfter.total),
+        "X-ATS-Breakdown-After": JSON.stringify(atsAfter.breakdown),
       },
     });
   } catch (error) {

@@ -44,6 +44,8 @@ function AnalyzeContent() {
   const [analysisError, setAnalysisError] = useState("");
   const [resumeText, setResumeText] = useState("");
   const [analysisId, setAnalysisId] = useState(null);
+  const [scoringBreakdown, setScoringBreakdown] = useState(null);
+  const [atsScore, setAtsScore] = useState(null);
 
   const fileInputRef = useRef(null);
   const loadingIntervalRef = useRef(null);
@@ -145,6 +147,8 @@ function AnalyzeContent() {
       setAnalysisResult(data.analysis);
       setAnalysisId(data.analysisId);
       setResumeText(data.resumeText || "");
+      setScoringBreakdown(data.scoringBreakdown || null);
+      setAtsScore(data.atsScore || null);
       
       console.log("-----------------------------------------");
       console.log(`✅ ANALYSIS COMPLETE!`);
@@ -165,6 +169,8 @@ function AnalyzeContent() {
     setJobDescription("");
     setAnalysisResult(null);
     setAnalysisError("");
+    setScoringBreakdown(null);
+    setAtsScore(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
   }
 
@@ -178,6 +184,9 @@ function AnalyzeContent() {
         onReset={handleReset}
         resumeText={resumeText}
         jobDescription={jobDescription}
+        analysisId={analysisId}
+        scoringBreakdown={scoringBreakdown}
+        atsScore={atsScore}
       />
     );
   }

@@ -73,7 +73,12 @@ function SessionContent() {
       result={session.gapAnalysis}
       resumeText={session.resumeText}
       jobDescription={session.jobDescription}
-      analysisId={session._id}
+      analysisId={session._id || id}
+      scoringBreakdown={session.scoringBreakdown}
+      atsScore={session.atsScore}
+      interviewScorecard={session.interviewScorecard}
+      interviewTranscript={session.interviewTranscript}
+      interviewHistory={session.interviewHistory}
       onReset={() => router.push("/dashboard")}
     />
   );

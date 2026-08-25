@@ -17,6 +17,7 @@ function DashboardContent() {
   const { user } = useAuth();
   const [history, setHistory] = useState([]);
   const [loadingHistory, setLoadingHistory] = useState(true);
+  const [dbError, setDbError] = useState("");
 
   useEffect(() => {
     async function fetchHistory() {
@@ -26,6 +27,10 @@ function DashboardContent() {
         const data = await res.json();
         if (data.success) {
           setHistory(data.history || []);
+        } else if (data.errorType === "database_connection_error") {
+          setDbError(data.error);
+        } else {
+          console.error("Failed to fetch history:", data.error);
         }
       } catch (error) {
         console.error("Failed to fetch history:", error);
@@ -36,11 +41,41 @@ function DashboardContent() {
     fetchHistory();
   }, [user]);
 
-  // Compute stats
+  // Compute Progress Intelligence
   const totalSessions = history.length;
   const avgScore = totalSessions > 0 
     ? Math.round(history.reduce((acc, cur) => acc + (cur.matchScore || 0), 0) / totalSessions) 
     : "—";
+
+  const optimizedCount = history.filter(h => h.rewrittenData).length;
+
+  const gradedInterviews = history.filter(h => h.interviewScorecard?.compositeScore);
+  const avgInterviewScore = gradedInterviews.length > 0
+    ? Math.round(gradedInterviews.reduce((acc, cur) => acc + cur.interviewScorecard.compositeScore, 0) / gradedInterviews.length)
+    : "—";
+
+  // Score growth trend
+  const sortedByTime = [...history].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+  const trend = sortedByTime.length > 1 
+    ? Math.round(((sortedByTime[sortedByTime.length - 1].matchScore - sortedByTime[0].matchScore) / Math.max(sortedByTime[0].matchScore, 1)) * 100)
+    : 0;
+
+  // Longitudinal chronic skill gap tracking
+  const skillFrequency = {};
+  history.forEach(s => {
+    const missing = s.gapAnalysis?.missingSkills || [];
+    missing.forEach(m => {
+      if (m.skill) {
+        const canonical = m.skill.trim();
+        skillFrequency[canonical] = (skillFrequency[canonical] || 0) + 1;
+      }
+    });
+  });
+  const persistentGaps = Object.entries(skillFrequency)
+    .filter(([_, count]) => count >= 2)
+    .sort((a, b) => b[1] - a[1])
+    .map(([skill, count]) => ({ skill, count }))
+    .slice(0, 4);
 
   return (
     <div className="relative min-h-screen">
@@ -104,7 +139,7 @@ function DashboardContent() {
 
         {/* Stats Grid */}
         <div
-          className="animate-fade-in-up grid grid-cols-1 sm:grid-cols-3 gap-5 mb-10"
+          className="animate-fade-in-up grid grid-cols-1 sm:grid-cols-4 gap-5 mb-10"
           style={{ animationDelay: "0.2s" }}
         >
           <div className="glass-card px-6 py-5">
@@ -117,15 +152,55 @@ function DashboardContent() {
             <p className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider mb-1">
               Avg Match Score
             </p>
-            <p className="text-3xl font-bold text-[var(--text-muted)]">{loadingHistory ? "..." : avgScore}</p>
+            <div className="flex items-baseline gap-2">
+              <p className="text-3xl font-bold text-white">{loadingHistory ? "..." : avgScore}</p>
+              {trend !== 0 && !loadingHistory && (
+                <span className={`text-xs font-bold ${trend > 0 ? "text-[var(--accent-green)]" : "text-[var(--accent-red)]"}`}>
+                  {trend > 0 ? `+${trend}%` : `${trend}%`} ↑
+                </span>
+              )}
+            </div>
           </div>
           <div className="glass-card px-6 py-5">
             <p className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider mb-1">
               Resumes Optimized
             </p>
-            <p className="text-3xl font-bold text-white">{loadingHistory ? "..." : totalSessions}</p>
+            <p className="text-3xl font-bold text-white">{loadingHistory ? "..." : optimizedCount}</p>
+          </div>
+          <div className="glass-card px-6 py-5">
+            <p className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider mb-1">
+              Avg Interview Rating
+            </p>
+            <p className="text-3xl font-bold text-white">{loadingHistory ? "..." : avgInterviewScore}</p>
           </div>
         </div>
+
+        {/* Chronic Skill Gaps Tracker Widget */}
+        {!loadingHistory && persistentGaps.length > 0 && (
+          <div className="animate-fade-in-up mb-10" style={{ animationDelay: "0.25s" }}>
+            <div className="glass-card p-6 border border-[var(--accent-amber)]/20 bg-[var(--accent-amber)]/[0.02]">
+              <div className="flex items-center gap-2 mb-3">
+                <svg className="w-5 h-5 text-[var(--accent-amber)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                </svg>
+                <h3 className="text-sm font-semibold text-white">Chronic Skill Gaps Detected</h3>
+              </div>
+              <p className="text-xs text-[var(--text-secondary)] mb-4 max-w-2xl">
+                These skills keep appearing as missing across multiple job applications you analyzed. Consider practicing mock interviews targeting these gaps:
+              </p>
+              <div className="flex flex-wrap gap-2.5">
+                {persistentGaps.map(({ skill, count }) => (
+                  <span key={skill} className="px-3 py-1.5 rounded-lg text-xs font-medium bg-[#111] text-[var(--accent-amber)] border border-[var(--accent-amber)]/25 flex items-center gap-1.5">
+                    {skill}
+                    <span className="px-1.5 py-0.5 text-[10px] font-bold rounded-md bg-[var(--accent-amber)]/10 text-white">
+                      {count}x missing
+                    </span>
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Session History */}
         <div
@@ -136,7 +211,17 @@ function DashboardContent() {
             Recent Sessions
           </h2>
           
-          {loadingHistory ? (
+          {dbError ? (
+            <div className="glass-card p-6 border border-[var(--accent-red)]/35 bg-[var(--accent-red)]/10 flex items-start gap-3">
+              <svg className="w-5 h-5 text-[var(--accent-red)] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+              </svg>
+              <div>
+                <p className="text-[var(--accent-red)] text-sm font-semibold mb-1">Database connection issue</p>
+                <p className="text-[var(--text-secondary)] text-xs leading-relaxed">{dbError}</p>
+              </div>
+            </div>
+          ) : loadingHistory ? (
             <div className="glass-card py-16 flex flex-col items-center justify-center text-center">
               <div className="w-8 h-8 border-3 border-[var(--accent-blue)] border-t-transparent rounded-full animate-spin mb-4" />
               <p className="text-[var(--text-secondary)] text-sm">Loading history...</p>
@@ -175,9 +260,24 @@ function DashboardContent() {
                           {item.matchScore} / 100
                         </span>
                       </div>
-                      <p className="text-[var(--text-secondary)] text-xs line-clamp-2 mb-4 leading-relaxed">
+                      <p className="text-[var(--text-secondary)] text-xs line-clamp-2 mb-3 leading-relaxed">
                         {item.gapAnalysis?.verdict || "No verdict available"}
                       </p>
+                      {item.interviewScorecard ? (
+                        <div className="mb-4 px-3 py-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-between">
+                          <span className="text-[10px] font-semibold text-emerald-300 flex items-center gap-1.5">
+                            🎙️ Mock Interview Scorecard
+                          </span>
+                          <span className="text-xs font-bold text-emerald-400">
+                            {item.interviewScorecard.compositeScore} / 100
+                          </span>
+                        </div>
+                      ) : (
+                        <div className="mb-4 px-3 py-1.5 rounded-lg bg-[#111] border border-[#222] flex items-center justify-between text-[10px] text-[var(--text-muted)]">
+                          <span>🎙️ Mock Interview</span>
+                          <span className="text-[var(--accent-blue)] font-semibold">Start Practice →</span>
+                        </div>
+                      )}
                     </div>
                     <div className="flex items-center justify-between text-xs text-[var(--text-muted)]">
                       <span>{new Date(item.createdAt).toLocaleDateString()}</span>

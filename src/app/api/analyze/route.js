@@ -4,6 +4,14 @@ import mammoth from "mammoth";
 import connectToDatabase from "@/lib/mongodb";
 import User from "@/models/User";
 import Analysis from "@/models/Analysis";
+import {
+  computeTfIdfScore,
+  computeSemanticScore,
+  computeHybridScore,
+  computeATSScore,
+} from "@/lib/scoring";
+import { saveSessionToCache } from "@/lib/sessionCache";
+import { saveAnalysisToFileDb } from "@/lib/fileDb";
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
@@ -133,8 +141,60 @@ export async function POST(request) {
       );
     }
 
-    // Save to Database asynchronously if the user is logged in
+    // ── Hybrid Scoring Pipeline ──────────────────────────────────────────
+    // Signal 1: TF-IDF keyword match (deterministic, lexical)
+    const tfidfResult = computeTfIdfScore(resumeText, jobDescription);
+    console.log(`[Analyze] TF-IDF score: ${tfidfResult.score}`);
+
+    // Signal 2: Semantic similarity (optional, requires HUGGINGFACE_API_KEY)
+    const semanticScore = await computeSemanticScore(resumeText, jobDescription);
+    console.log(`[Analyze] Semantic score: ${semanticScore ?? "unavailable"}`);
+
+    // Signal 3: LLM score (Gemini — already computed above)
+    const llmScore = analysis.matchScore || 0;
+
+    // Fuse signals → Hybrid Score
+    const hybridResult = computeHybridScore({
+      tfidf: tfidfResult.score,
+      semantic: semanticScore,
+      llm: llmScore,
+    });
+    console.log(`[Analyze] Hybrid score: ${hybridResult.hybridScore}`);
+
+    // ATS Readiness Score (pure deterministic, no API)
+    const atsResult = computeATSScore(resumeText, jobDescription);
+    console.log(`[Analyze] ATS score: ${atsResult.total}/100`);
+
+    // Bundle scoring data to return and store
+    const scoringBreakdown = {
+      tfidf: { score: tfidfResult.score, matchedTerms: tfidfResult.matchedTerms, missingTerms: tfidfResult.missingTerms, topJdTerms: tfidfResult.topJdTerms },
+      semantic: semanticScore,
+      llm: llmScore,
+      hybrid: hybridResult,
+    };
+    // ─────────────────────────────────────────────────────────────────────
+
+    // Bundle session payload
+    const sessionPayload = {
+      jobTitle: analysis.jobTitle || "Unknown Role",
+      jobDescription,
+      resumeText,
+      matchScore: hybridResult.hybridScore,
+      gapAnalysis: analysis,
+      scoringBreakdown,
+      atsScore: atsResult,
+      createdAt: new Date(),
+    };
+
+    // Always save to persistent local file DB as fallback
     let analysisId = null;
+    const localRecord = saveAnalysisToFileDb({
+      uid: uid || "local_user",
+      ...sessionPayload,
+    });
+    analysisId = String(localRecord._id);
+    saveSessionToCache(analysisId, sessionPayload);
+
     if (uid) {
       try {
         await connectToDatabase();
@@ -143,18 +203,14 @@ export async function POST(request) {
         if (userDoc) {
           const doc = await Analysis.create({
             userId: userDoc._id,
-            jobTitle: analysis.jobTitle || "Unknown Role",
-            jobDescription,
-            resumeText,
-            matchScore: analysis.matchScore || 0,
-            gapAnalysis: analysis,
+            ...sessionPayload,
           });
-          analysisId = doc._id;
-          console.log("[Analyze] ✓ Saved analysis to database for user:", userDoc.email);
+          analysisId = String(doc._id);
+          saveSessionToCache(analysisId, sessionPayload);
+          console.log("[Analyze] ✓ Saved analysis to MongoDB for user:", userDoc.email);
         }
       } catch (dbError) {
-        console.error("[Analyze] ✗ Failed to save to database:", dbError);
-        // We do not throw here because the analysis was successful and we still want to return it to the user.
+        console.warn("[Analyze] ⚠️ MongoDB Atlas unavailable, saved session to local persistent file DB.");
       }
     }
 
@@ -165,6 +221,8 @@ export async function POST(request) {
       model: usedModel,
       resumeText,
       resumeTextLength: resumeText.length,
+      scoringBreakdown,
+      atsScore: atsResult,
     });
   } catch (error) {
     console.error("Analysis API error:", error);

@@ -1,0 +1,803 @@
+{
+  "users": [
+    {
+      "firebaseUid": "sgyNRjrSEFd9ATXj9Y2TQJQvYGf2",
+      "email": "rounak78bd@gmail.com",
+      "displayName": "Rounak Singh",
+      "photoURL": "https://lh3.googleusercontent.com/a/ACg8ocJQQpx7Y_Xah71pthffO_tBR5oZ0UjQe5PzEtnl7JQtCh2edQa9=s96-c"
+    }
+  ],
+  "analyses": [
+    {
+      "uid": "sgyNRjrSEFd9ATXj9Y2TQJQvYGf2",
+      "jobTitle": "Data Analyst",
+      "jobDescription": "We need a Data Analyst to translate business requirements into actionable insights. Requirements include strong SQL skills, experience with data visualization tools (Tableau, PowerBI), and proficiency in Excel. You will be responsible for creating dashboards, running A/B tests, and presenting findings.",
+      "resumeText": "KUMAR GAURAV  \n\nAddress: CoLiving PG, AECS Layout,                                                                                           \n\nBangalore, Karnataka – 560037  \n\nMobile No. - +91 8766313590  \n\nEmail ID – kuga23cs@cmrit.ac.in / kg15072004@gmail.com  \n\nLinkedIn – https://www.linkedin.com/in/kumar-gaurav-5bb64728a  \n\nGitHub – https://github.com/1415-da  \n\nLeetCode – https://leetcode.com/u/Gaurav1415  \n\nCAREER OBJECTIVE   \n\nAspiring Software Developer / Data Analyst seeking opportunities at tech-driven companies like Google, Microsoft, Samsung or Netflix. Skilled in coding, full-stack development, and data analytics, with handson project experience in building scalable applications and AI-powered solutions. Passionate about solving real-world problems, learning from industry experts, and contributing to impactful projects in a collaborative environment while continuously growing technically and professionally.  \n\n \n\nEDUCATION QUALIFICATION ● Bachelor of Engineering - Computer Science and Engineering  \n\nCMR Institute of Technology, Bengaluru   \n\nCGPA: 8.69, 2027(Pursuing)  \n\n● 12th Standard – Science  \n\nVidya Mandir Public School, Faridabad, Haryana  90%, 2022  \n\n● 10th Standard   \n\nModern Public School, Faridabad, Haryana  \n\n91%, 2020                                                                                                                                      \n\n \n\nTECHNICAL SKILLS  \n\nProgramming Languages: Python, MySQL, C, C++, HTML, CSS, JavaScript   \n\nOperating System: Windows, Linux  \n\nFrameworks and Tools: React.js, Next.js, Node.js, Flask, Scikit-learn, TensorFlow, PyTorch  \n\nVisualization Tools: Pandas, NumPy, Matplotlib, Seaborn, Tableau, Power BI, Excel  \n\nSoft Skills: Analytical Problem-Solving, Data Storytelling, Collaboration, Adaptability, Stakeholder Communication  \n\n \n\nPROJECTS  \n\nData Swift – Data Analytics Platform | Next.js, Python, Pandas, NumPy, Scikit-learn, Tailwind CSS                    o Built an analytics platform that lets non-technical users upload datasets, trigger automatic data cleaning, perform EDA, and generate AI-powered insights through a simple, guided interface.  o Implemented backend logic using Python, Pandas, and Scikit-learn to manage preprocessing, statistical analysis, and insight generation without needing user coding.  \n\nDelivered a responsive, dual-mode UI in Next.js and Tailwind CSS, providing one-click reporting for business users and custom scripting options for advanced analysts.  \n\n  \n\n  \n\nWeather Data Analysis – Power BI Dashboard | Weather API, DAX, Power BI                                                       o Extracted and transformed real-time and 7-day weather forecast data for Indian cities using a Weather API. The data included temperature, humidity, rainfall, wind speed, and pressure.  \n\nBuilt DAX measures to calculate averages, standard deviation, variance, and forecast accuracy. \n\nThis allows for detailed trend analysis and reliability scoring. o Created a user-friendly Power BI dashboard with dynamic KPIs, multi-city selectors, forecast charts, rain probability bars, and AQI breakdowns to tell a story with data.  \n\nCredit Score Prediction – ML Web App | Python Flask, Pandas, NumPy, Scikit-learn, React.js                            Jun 2025       \n\nDeployed a responsive full-stack web app using a Flask backend and a sleek dark-themed React.js frontend for real-time credit risk scoring.  \n\nCreated interactive credit score gauges and dynamic financial visuals linked to a machine learning model trained on 27 financial metrics, reaching over 80% accuracy.  \n\nProvided a finance-focused user interface and experience that offers useful credit risk insights, allowing for smarter lending decisions.  \n\n  \n\nINTERNSHIP ● Company Name: Tradyon  \n\n● Duration: Nov 2025 - Present ● Role: Operations Intern ● Responsibilities:   \n\n○ Conducted EDA on global trade data (Panjiva, Trade Map) using Python, Matplotlib, and Seaborn, boosting forecasting accuracy by 30% by identifying supply-chain trends.  \n\n○ Developed and maintained Excel-based CRM systems and dashboards for 20+ international accounts, increasing data integrity, accessibility, and reporting efficiency by 30%.  \n\n○ Managed operational workflows end-to-end, collaborating with teams and clients to create analysis-ready datasets from business requirements with 99% accuracy.  \n\n \n\nACHIEVEMENTS  \n\nSecured 3rd place in a Hardware Hackathon at KLE University, showcasing innovation and problem-solving skills.  \n\nFinalist in the Generative AI Hackathon at Sandip University, demonstrating expertise in cuttingedge AI technologies and teamwork.  \n\n \n\nCERTIFICATIONS  \n\nCertified on “AI for Product Management” from Pendo.io (Jul 2025)  \n\nCertified on “Become SQL Champion” from Udemy (Apr 2025)  \n\nCertified on “Deloitte Australia- Data Analytics Job Simulation” from Forage (Apr 2025)  \n\nCertified on “Goldman Sachs Software Engineering” from Goldman Sachs (Feb 2025)  \n\n \n\nPERSONAL DETAILS  \n\nDOB  \t  \t  \t: 15 July 2004  \n\nGender   \t  \t: Male  \n\nNationality  \t  \t: Indian  \n\nLinguistic Competencies: English, Hindi, Punjabi, Haryanvi  \n\nHobbies  \t  \t: Basketball, Fitness & Travelling  \n\n  \n\n  \n\n",
+      "matchScore": 64,
+      "gapAnalysis": {
+        "matchScore": 75,
+        "jobTitle": "Data Analyst",
+        "strongMatches": [
+          {
+            "skill": "Data Visualization Tools (Tableau, Power BI)",
+            "detail": "The resume explicitly lists Tableau and Power BI under 'Visualization Tools'. The 'Weather Data Analysis' project specifically highlights creating a Power BI dashboard with dynamic KPIs."
+          },
+          {
+            "skill": "Excel Proficiency",
+            "detail": "Excel is listed under 'Visualization Tools' and was utilized during the Tradyon internship to 'Developed and maintained Excel-based CRM systems and dashboards'."
+          },
+          {
+            "skill": "Strong SQL Skills",
+            "detail": "The candidate is 'Certified on “Become SQL Champion” from Udemy', indicating a dedicated effort to master SQL."
+          },
+          {
+            "skill": "Creating Dashboards",
+            "detail": "Demonstrated prominently in the 'Weather Data Analysis – Power BI Dashboard' project and the Tradyon internship where Excel-based dashboards were maintained."
+          },
+          {
+            "skill": "Translating Business Requirements into Actionable Insights",
+            "detail": "The 'Data Swift' project focuses on generating AI-powered insights for non-technical users. The Tradyon internship involved 'creating analysis-ready datasets from business requirements'."
+          },
+          {
+            "skill": "Presenting Findings",
+            "detail": "The candidate lists 'Data Storytelling' and 'Stakeholder Communication' as soft skills, and projects like 'Weather Data Analysis' emphasize creating user-friendly dashboards 'to tell a story with data'."
+          }
+        ],
+        "weakMatches": [
+          {
+            "skill": "Application of Strong SQL Skills",
+            "detail": "While a SQL certification is mentioned, the resume does not explicitly detail how SQL was applied in projects (e.g., complex queries, database design, performance tuning) beyond being listed as a programming language."
+          },
+          {
+            "skill": "Highlighting Data Analysis Lifecycle Experience",
+            "detail": "The candidate clearly performs data analysis in projects (e.g., EDA, statistical analysis) and mentions 'Data Analyst' in their objective. However, the resume could more explicitly frame these experiences within an end-to-end data analysis lifecycle."
+          }
+        ],
+        "missingSkills": [
+          {
+            "skill": "Running A/B Tests",
+            "importance": "critical",
+            "detail": "There is no mention of experience with A/B testing methodologies, experiment design, or statistical analysis of test results, which is a key requirement in the job description."
+          }
+        ],
+        "keywordsToAdd": [
+          "Actionable insights",
+          "A/B tests",
+          "Experiment design"
+        ],
+        "verdict": "Kumar Gaurav possesses a strong foundational skillset for a Data Analyst role, demonstrated through multiple projects utilizing Power BI, Tableau, Excel, and Python for data analysis and dashboard creation. His certification in SQL further strengthens his technical profile, aligning well with most of the job description's requirements. The primary area for improvement is to gain or highlight experience with A/B testing, a critical requirement for this specific role."
+      },
+      "scoringBreakdown": {
+        "tfidf": {
+          "score": 44,
+          "matchedTerms": [
+            "data",
+            "analyst",
+            "business",
+            "insights",
+            "sql",
+            "skills",
+            "visualization",
+            "tools",
+            "tableau",
+            "excel",
+            "dashboards"
+          ],
+          "missingTerms": [
+            "translate",
+            "actionable",
+            "include",
+            "powerbi",
+            "proficiency",
+            "responsible",
+            "creating",
+            "running",
+            "tests",
+            "presenting",
+            "findings"
+          ],
+          "topJdTerms": [
+            {
+              "term": "data",
+              "weight": 0.087,
+              "matched": true
+            },
+            {
+              "term": "translate",
+              "weight": 0.061,
+              "matched": false
+            },
+            {
+              "term": "actionable",
+              "weight": 0.061,
+              "matched": false
+            },
+            {
+              "term": "include",
+              "weight": 0.061,
+              "matched": false
+            },
+            {
+              "term": "powerbi",
+              "weight": 0.061,
+              "matched": false
+            },
+            {
+              "term": "proficiency",
+              "weight": 0.061,
+              "matched": false
+            },
+            {
+              "term": "responsible",
+              "weight": 0.061,
+              "matched": false
+            },
+            {
+              "term": "creating",
+              "weight": 0.061,
+              "matched": false
+            },
+            {
+              "term": "running",
+              "weight": 0.061,
+              "matched": false
+            },
+            {
+              "term": "tests",
+              "weight": 0.061,
+              "matched": false
+            },
+            {
+              "term": "presenting",
+              "weight": 0.061,
+              "matched": false
+            },
+            {
+              "term": "findings",
+              "weight": 0.061,
+              "matched": false
+            },
+            {
+              "term": "analyst",
+              "weight": 0.043,
+              "matched": true
+            },
+            {
+              "term": "business",
+              "weight": 0.043,
+              "matched": true
+            },
+            {
+              "term": "insights",
+              "weight": 0.043,
+              "matched": true
+            },
+            {
+              "term": "sql",
+              "weight": 0.043,
+              "matched": true
+            },
+            {
+              "term": "skills",
+              "weight": 0.043,
+              "matched": true
+            },
+            {
+              "term": "visualization",
+              "weight": 0.043,
+              "matched": true
+            },
+            {
+              "term": "tools",
+              "weight": 0.043,
+              "matched": true
+            },
+            {
+              "term": "tableau",
+              "weight": 0.043,
+              "matched": true
+            },
+            {
+              "term": "excel",
+              "weight": 0.043,
+              "matched": true
+            },
+            {
+              "term": "dashboards",
+              "weight": 0.043,
+              "matched": true
+            }
+          ]
+        },
+        "semantic": 60,
+        "llm": 75,
+        "hybrid": {
+          "hybridScore": 64,
+          "weights": {
+            "tfidf": 0.2,
+            "semantic": 0.3,
+            "llm": 0.5
+          },
+          "signals": {
+            "tfidf": 44,
+            "semantic": 60,
+            "llm": 75
+          }
+        }
+      },
+      "atsScore": {
+        "total": 100,
+        "breakdown": {
+          "keywordDensity": {
+            "score": 30,
+            "max": 30
+          },
+          "sectionPresence": {
+            "score": 25,
+            "max": 25,
+            "detected": [
+              "experience",
+              "education",
+              "skills",
+              "projects",
+              "objective",
+              "certifications"
+            ]
+          },
+          "quantification": {
+            "score": 20,
+            "max": 20,
+            "matchCount": 7
+          },
+          "actionVerbs": {
+            "score": 15,
+            "max": 15,
+            "used": [
+              "developed",
+              "led",
+              "built",
+              "implemented",
+              "created",
+              "managed",
+              "delivered",
+              "deployed"
+            ]
+          },
+          "lengthFit": {
+            "score": 10,
+            "max": 10
+          }
+        },
+        "wordCount": 615,
+        "matchedKeywords": [
+          "data",
+          "analyst",
+          "business",
+          "insights",
+          "sql",
+          "skills",
+          "visualization",
+          "tools",
+          "tableau",
+          "excel",
+          "dashboards"
+        ],
+        "missingKeywords": [
+          "translate",
+          "actionable",
+          "include",
+          "powerbi",
+          "proficiency",
+          "responsible",
+          "creating",
+          "running",
+          "tests",
+          "presenting",
+          "findings"
+        ]
+      },
+      "createdAt": "2026-07-29T13:21:00.635Z",
+      "_id": "analysis_1785331260636",
+      "updatedAt": "2026-08-07T03:54:53.362Z",
+      "interviewTranscript": [
+        {
+          "role": "assistant",
+          "committed": "",
+          "partial": "Hey there. I'm Alex. We're going to do a quick three question rapid fire round for your data analyst application. Looking at your resume analysis, I noticed you have missing experience with running a b test."
+        }
+      ],
+      "interviewScorecard": {
+        "compositeScore": 21,
+        "star": {
+          "situation": 0,
+          "task": 0,
+          "action": 0,
+          "result": 0,
+          "total": 0,
+          "score": 0
+        },
+        "technicalDepth": 0,
+        "keywordCoverage": {
+          "coveredSkills": [],
+          "coverageScore": 0,
+          "totalTarget": 3,
+          "coveredCount": 0
+        },
+        "communication": {
+          "totalWords": 0,
+          "fillerRatio": 0,
+          "vocabularyRichness": 0,
+          "avgSentenceLength": 0,
+          "confidenceScore": 5,
+          "fillerCount": 0,
+          "score": 70
+        },
+        "lengthFit": {
+          "score": 100,
+          "avgLength": 0,
+          "optimalPct": 100
+        },
+        "feedback": [
+          "No transcript was provided for analysis. Please provide the candidate's responses to receive a detailed evaluation."
+        ],
+        "sampleAnswers": [],
+        "evaluatedAt": "2026-08-07T03:54:53.334Z",
+        "dkt": {
+          "totalAttempts": 3,
+          "readinessIndex": 35,
+          "learningRate": "-1.7% / attempt",
+          "predictions": [
+            {
+              "skill": "STAR Method Structure",
+              "predictedMastery": 25,
+              "confidence": "Needs Focus",
+              "status": "🎯 Focus Area: Priority to Improve in Attempt #4",
+              "trend": -15
+            },
+            {
+              "skill": "Technical Challenge Depth",
+              "predictedMastery": 24,
+              "confidence": "Needs Focus",
+              "status": "🎯 Focus Area: Priority to Improve in Attempt #4",
+              "trend": -16
+            },
+            {
+              "skill": "Assertive Communication",
+              "predictedMastery": 63,
+              "confidence": "Moderate Mastery",
+              "status": "📈 Developing Skill: Practice 1 More Round",
+              "trend": 23
+            },
+            {
+              "skill": "Running A/B Tests",
+              "predictedMastery": 30,
+              "confidence": "Needs Focus",
+              "status": "🎯 Focus Area: Priority to Improve in Attempt #4",
+              "trend": -10
+            }
+          ],
+          "latentStateVector": [
+            0.25,
+            0.24,
+            0.63,
+            0.3
+          ],
+          "formulaInfo": {
+            "modelName": "Deep Knowledge Tracing (DKT - Recurrent Knowledge State)",
+            "equation": "h_t = σ(W_hx · x_t + W_hh · h_{t-1} + b_h)",
+            "predictionEq": "y_{t+1} = σ(W_y · h_t + b_y)"
+          }
+        }
+      },
+      "interviewHistory": [
+        {
+          "attemptNumber": 1,
+          "compositeScore": 18,
+          "evaluatedAt": "2026-07-29T13:54:42.019Z",
+          "scorecard": {
+            "compositeScore": 18,
+            "star": {
+              "situation": 2,
+              "task": 2,
+              "action": 1,
+              "result": 0,
+              "total": 5,
+              "score": 13
+            },
+            "technicalDepth": 15,
+            "keywordCoverage": {
+              "coveredSkills": [],
+              "coverageScore": 0,
+              "totalTarget": 3,
+              "coveredCount": 0
+            },
+            "communication": {
+              "totalWords": 108,
+              "fillerRatio": 0.01,
+              "vocabularyRichness": 0.54,
+              "avgSentenceLength": 15,
+              "confidenceScore": 5,
+              "fillerCount": 1,
+              "score": 70
+            },
+            "lengthFit": {
+              "score": 0,
+              "avgLength": 27,
+              "optimalPct": 0
+            },
+            "feedback": [
+              "Practice structuring your answers using the STAR method, focusing on providing specific details for the Situation, Task, Action, and especially quantifiable Results.",
+              "When discussing technical concepts like A/B testing, move beyond buzzwords by explaining the 'how' and 'why', including specific metrics, hypotheses, and your methodology. Avoid vague terms like 'regions' or 'implementation of the user'.",
+              "Always strive to include quantifiable outcomes or measurable impacts when describing the results of your projects to demonstrate concrete value."
+            ],
+            "sampleAnswers": [
+              {
+                "originalSnippet": "We were making we were making an application... chat application where we have to run out a feature. We have done it in in an a b phase where I have to do a feature testing for a and for the run off for the b section.",
+                "improvedSampleAnswer": "Certainly. In my previous role, the **situation** was that our team was developing a new 'quick reply' feature for our chat application, aiming to reduce user response time. My **task** was to design and execute an A/B test to determine which of two UI designs for this feature would lead to higher user engagement and satisfaction before a full rollout. For the **action**, I first collaborated with product managers to define clear success metrics, primarily focusing on 'response rate' (percentage of chats where a quick reply was used) and 'average message length' (to ensure quality of interaction wasn't compromised). I then worked with engineering to split our user base into two equal segments, exposing Version A (icon-based quick replies) to one group and Version B (text-based quick replies) to the other. I monitored the test for two weeks, collecting data on user interactions, and performed statistical analysis using Python to compare the performance. The **result** showed that Version B, the text-based quick replies, led to a 15% increase in response rate compared to Version A, with no significant decrease in message length. Based on these findings, we recommended rolling out Version B, which ultimately contributed to a 5% overall improvement in user engagement for the application."
+              },
+              {
+                "originalSnippet": "Regions. Based on the feature of the, uh, implementation of the user and feedback of the users.",
+                "improvedSampleAnswer": "When determining metrics for an A/B test, especially for a chat application feature, my approach is to align them directly with the business objective and user behavior we want to influence. For that quick reply feature, we were looking to enhance user interaction and efficiency. So, the key **metrics** we decided to track were: 1. **Response Rate:** The percentage of chat messages where a user utilized one of the quick replies. This directly measured adoption and the feature's primary goal. 2. **Time to First Response:** Measuring if the new feature helped users respond more quickly. 3. **Average Message Length (Post-Quick Reply):** To ensure the quick replies weren't leading to overly short or unhelpful messages, thus maintaining communication quality. 4. **User Satisfaction Score (from post-chat surveys):** A qualitative measure to gauge overall sentiment. These metrics allowed us to quantitatively assess which version of the feature truly optimized user engagement and improved the chat experience."
+              }
+            ],
+            "evaluatedAt": "2026-07-29T13:54:42.019Z"
+          },
+          "transcript": [
+            {
+              "role": "assistant",
+              "committed": "Hey there. I'm Alex. We're going to do a quick three question rapid fire round for your data analyst application. Looking at your resume analysis, I noticed you have missing experience with running a b test. Let's jump right into your experience with that. ",
+              "partial": ""
+            },
+            {
+              "role": "user",
+              "committed": "Considerable experience in AV testing, I have made many projects and implemented AB testing, and I have also worked with it. ",
+              "partial": ""
+            },
+            {
+              "role": "assistant",
+              "committed": "Oh, that's really interesting. It sounds like you've got some hands on experience there. Could you tell me about your most relevant project where you applied a b testing? I'd love to hear about what you did and why it was important for the business. ",
+              "partial": ""
+            },
+            {
+              "role": "user",
+              "committed": "We were making we were making an application... chat application where we have to run out a feature. We have done it in in an a b phase where I have to do a feature testing for a and for the run off for the b section. ",
+              "partial": ""
+            },
+            {
+              "role": "assistant",
+              "committed": "That's a really clear explanation. So you had two different versions of a feature, and you were testing which one performed better. When you were running that AB test for the chat application feature, how did you decide what metrics to track to determine a version a or version b was more successful? ",
+              "partial": "What were you looking for to say?"
+            },
+            {
+              "role": "user",
+              "committed": "",
+              "partial": "Please don't"
+            },
+            {
+              "role": "assistant",
+              "committed": "What were you looking for to say? ",
+              "partial": ""
+            },
+            {
+              "role": "user",
+              "committed": "Regions. Based on the feature of the, uh, implementation of the user and feedback of the users. ",
+              "partial": ""
+            },
+            {
+              "role": "assistant",
+              "committed": "Okay. So you were looking at user engagement and feedback, which makes a lot of sense for a chat application. That's a really good starting point. Now let's say you run your AB test and you've gathered all this data. How would you go about presenting your findings to stakeholders who might not be as technical as you are? What's your approach to making sure they understand the impact of your test? ",
+              "partial": ""
+            },
+            {
+              "role": "user",
+              "committed": "Wouldn't I be used charts and graphs to show the impact of my AB testing with a visual explanation for the non technical ",
+              "partial": ""
+            },
+            {
+              "role": "assistant",
+              "committed": "That's a great approach. Visuals definitely help bridge that gap. Using charts and graphs to simplify complex data for nontechnical stakeholders is super effective. That wraps up our quick fire round. Thanks so much for your thoughtful answers and clear communication. Check your dashboard for detailed feedback. Have a great day. ",
+              "partial": ""
+            }
+          ]
+        },
+        {
+          "attemptNumber": 2,
+          "compositeScore": 22,
+          "evaluatedAt": "2026-07-29T14:20:50.861Z",
+          "scorecard": {
+            "compositeScore": 22,
+            "star": {
+              "situation": 3,
+              "task": 3,
+              "action": 2,
+              "result": 0,
+              "total": 8,
+              "score": 20
+            },
+            "technicalDepth": 15,
+            "keywordCoverage": {
+              "coveredSkills": [],
+              "coverageScore": 0,
+              "totalTarget": 3,
+              "coveredCount": 0
+            },
+            "communication": {
+              "totalWords": 170,
+              "fillerRatio": 0.01,
+              "vocabularyRichness": 0.49,
+              "avgSentenceLength": 17,
+              "confidenceScore": 5,
+              "fillerCount": 1,
+              "score": 70
+            },
+            "lengthFit": {
+              "score": 14,
+              "avgLength": 34,
+              "optimalPct": 0
+            },
+            "feedback": [
+              "Quantify your results with specific numbers, percentages, or clear impacts. Avoid vague statements like 'more positive aspects'.",
+              "Elaborate on the 'how' for your actions. Describe the tools, methodologies, and specific steps you took rather than just stating what you did.",
+              "Clearly define and use concrete metrics. Understand the difference between a broad concept (e.g., 'user engagement') or an interface element (e.g., 'button') and a specific, measurable data point (e.g., click-through rate, conversion rate, average session duration)."
+            ],
+            "sampleAnswers": [
+              {
+                "originalSnippet": "Hold on a bit testing, I have made an application, a chat application where we have to do two features. I have made an a section for a specific set of uses and a b section for a specific set of user with some feature changes. And based on the result, I have to go and get insights of which feature is perfect for the user.",
+                "improvedSampleAnswer": "Certainly. In a previous role, I worked on an internal chat application where we were constantly looking to optimize user experience before rolling out features company-wide. (Situation) One specific task I owned was to evaluate two different designs for a new 'quick reply' button feature. Design A had the button prominent in the message input field, while Design B placed it as a small icon next to the message itself. (Task) To do this, I set up an A/B test. I used SQL to query our user database, identified our most active daily users (defined as logging in at least 3 times a week), and then programmatically split them into two statistically significant, randomized groups of 500 users each, ensuring balanced demographics where possible. I instrumented both versions of the application to track 'quick reply' button click-through rates, message response times for conversations initiated with quick replies, and overall message volume. After running the test for two weeks, I pulled the data, performed a t-test to assess statistical significance, and visualized the findings using Tableau. (Action) The results showed that Design A, with the prominent button, achieved a 15% higher click-through rate and a 7% reduction in average message response time compared to Design B, indicating a more intuitive and efficient user interaction. This insight directly informed the product team's decision to implement Design A for the full release, which we projected would save users approximately 50 hours of typing per week across the company."
+              },
+              {
+                "originalSnippet": "He met a success as what the user was able to achieve and how it was able to achieve and more positive aspects about it. We use user engagement as a concrete method, like for the button you specify. We use button as a concrete method for EV testing.",
+                "improvedSampleAnswer": "To measure success in that A/B test for the 'quick reply' button, we focused on quantifiable metrics directly tied to user interaction and efficiency. (Situation/Task) The primary metrics I tracked were: 1. **Click-Through Rate (CTR)** of the new button, measured as clicks per user session; 2. **Average Message Response Time** for conversations where quick replies were used; and 3. **Overall Message Volume** to ensure the new feature wasn't cannibalizing other forms of communication. (Action) I instrumented event tracking for these interactions, collected the data via our internal logging service, and then used SQL to aggregate daily performance. I created a dashboard in Tableau to monitor these metrics in near real-time, performing daily checks for anomalies and conducting a deeper statistical analysis at the end of the two-week test period. This involved comparing the mean CTR and response times between Group A and Group B using a two-sample t-test in Python (SciPy library) to determine if the observed differences were statistically significant. (Action) We found that the feature with the higher CTR also correlated with a 10% faster average response time and maintained message volume, leading us to conclude it was the more effective design. This directly informed the product team's decision to roll out that specific button placement."
+              }
+            ],
+            "evaluatedAt": "2026-07-29T14:20:50.861Z",
+            "dkt": {
+              "totalAttempts": 2,
+              "readinessIndex": 38,
+              "learningRate": "+-1% / attempt",
+              "predictions": [
+                {
+                  "skill": "STAR Method Structure",
+                  "predictedMastery": 30,
+                  "confidence": "Needs Focus",
+                  "status": "Target for Attempt #3",
+                  "trend": -10
+                },
+                {
+                  "skill": "Technical Challenge Depth",
+                  "predictedMastery": 29,
+                  "confidence": "Needs Focus",
+                  "status": "Target for Attempt #3",
+                  "trend": -11
+                },
+                {
+                  "skill": "Assertive Communication",
+                  "predictedMastery": 62,
+                  "confidence": "Moderate Mastery",
+                  "status": "Developing Competency",
+                  "trend": 22
+                },
+                {
+                  "skill": "Running A/B Tests",
+                  "predictedMastery": 31,
+                  "confidence": "Needs Focus",
+                  "status": "Target for Attempt #3",
+                  "trend": -9
+                }
+              ],
+              "latentStateVector": [
+                0.3,
+                0.29,
+                0.62,
+                0.31
+              ],
+              "formulaInfo": {
+                "modelName": "Deep Knowledge Tracing (DKT - Recurrent Knowledge State)",
+                "equation": "h_t = σ(W_hx · x_t + W_hh · h_{t-1} + b_h)",
+                "predictionEq": "y_{t+1} = σ(W_y · h_t + b_y)"
+              }
+            }
+          },
+          "transcript": [
+            {
+              "role": "assistant",
+              "committed": "Hey there. I'm Alex. We're going to do a quick three question rapid fire round for your data analyst application. Looking at your resume analysis, I noticed you have missing experience with running AB tests. Let's jump right into your experience with that. ",
+              "partial": ""
+            },
+            {
+              "role": "user",
+              "committed": "Hold on a bit testing, I have made an application, a chat application where we have to do two features. I have made an a section for a specific set of uses and a b section for a specific set of user with some feature changes. And based on the result, I have to go and get insights of which feature is perfect for the user. ",
+              "partial": ""
+            },
+            {
+              "role": "assistant",
+              "committed": "Oh, that's really interesting. So you've actually implemented AB testing within your own chat application project. That's a fantastic way to get hands on experience. Could you tell me a bit more about that project? What was the most relevant project you worked on that really showcased your ability to translate business requirements into actionable insights similar to what we'd be doing here? ",
+              "partial": ""
+            },
+            {
+              "role": "user",
+              "committed": "I worked on a chat application where it was an internal chat application for the company, where we... they have to do not feature for their users before loading out for agenda public. ",
+              "partial": ""
+            },
+            {
+              "role": "assistant",
+              "committed": "That's a fantastic real world application. So you were essentially building a testing ground for new features before they went live to a wider audience. That's a very practical use of data analysis. Now let's dive a little deeper into the AB testing aspect. You mentioned you had an a section and a b section with feature changes. How did you determine which users went into group a versus group b? What was your methodology for splitting them up? ",
+              "partial": ""
+            },
+            {
+              "role": "user",
+              "committed": "We used a methodology of highest most frequently used customers. We have split them into half for a testing and b testing. ",
+              "partial": ""
+            },
+            {
+              "role": "assistant",
+              "committed": "Okay. So you targeted your most frequently used customers and split them right down the middle. That's a clear approach. Now once you had your a and b groups and they were interacting with their respective feature sets, what metrics did you track to determine which feature was perfect for the user as you put it? How did you actually measure success? ",
+              "partial": ""
+            },
+            {
+              "role": "user",
+              "committed": "He met a success as what the user was able to achieve and how it was able to achieve and more positive aspects about it. ",
+              "partial": ""
+            },
+            {
+              "role": "assistant",
+              "committed": "Okay. So you were looking at user achievement and positive aspects. That's a good start. Could you give me an example of a specific metric you tracked? For instance, if it was a new button placement, would you track click through rate? Or if it was a new communication flow, would you look at message response times? What was a concrete metric you used? ",
+              "partial": ""
+            },
+            {
+              "role": "user",
+              "committed": "We use user engagement as a concrete method, like for the button you specify. We use button as a concrete method for EV testing. ",
+              "partial": ""
+            },
+            {
+              "role": "assistant",
+              "committed": "",
+              "partial": "User engagement is a really key metric, especially in a chat application. So for example, if you have"
+            }
+          ]
+        },
+        {
+          "attemptNumber": 3,
+          "compositeScore": 21,
+          "evaluatedAt": "2026-08-07T03:54:53.334Z",
+          "scorecard": {
+            "compositeScore": 21,
+            "star": {
+              "situation": 0,
+              "task": 0,
+              "action": 0,
+              "result": 0,
+              "total": 0,
+              "score": 0
+            },
+            "technicalDepth": 0,
+            "keywordCoverage": {
+              "coveredSkills": [],
+              "coverageScore": 0,
+              "totalTarget": 3,
+              "coveredCount": 0
+            },
+            "communication": {
+              "totalWords": 0,
+              "fillerRatio": 0,
+              "vocabularyRichness": 0,
+              "avgSentenceLength": 0,
+              "confidenceScore": 5,
+              "fillerCount": 0,
+              "score": 70
+            },
+            "lengthFit": {
+              "score": 100,
+              "avgLength": 0,
+              "optimalPct": 100
+            },
+            "feedback": [
+              "No transcript was provided for analysis. Please provide the candidate's responses to receive a detailed evaluation."
+            ],
+            "sampleAnswers": [],
+            "evaluatedAt": "2026-08-07T03:54:53.334Z",
+            "dkt": {
+              "totalAttempts": 3,
+              "readinessIndex": 35,
+              "learningRate": "-1.7% / attempt",
+              "predictions": [
+                {
+                  "skill": "STAR Method Structure",
+                  "predictedMastery": 25,
+                  "confidence": "Needs Focus",
+                  "status": "🎯 Focus Area: Priority to Improve in Attempt #4",
+                  "trend": -15
+                },
+                {
+                  "skill": "Technical Challenge Depth",
+                  "predictedMastery": 24,
+                  "confidence": "Needs Focus",
+                  "status": "🎯 Focus Area: Priority to Improve in Attempt #4",
+                  "trend": -16
+                },
+                {
+                  "skill": "Assertive Communication",
+                  "predictedMastery": 63,
+                  "confidence": "Moderate Mastery",
+                  "status": "📈 Developing Skill: Practice 1 More Round",
+                  "trend": 23
+                },
+                {
+                  "skill": "Running A/B Tests",
+                  "predictedMastery": 30,
+                  "confidence": "Needs Focus",
+                  "status": "🎯 Focus Area: Priority to Improve in Attempt #4",
+                  "trend": -10
+                }
+              ],
+              "latentStateVector": [
+                0.25,
+                0.24,
+                0.63,
+                0.3
+              ],
+              "formulaInfo": {
+                "modelName": "Deep Knowledge Tracing (DKT - Recurrent Knowledge State)",
+                "equation": "h_t = σ(W_hx · x_t + W_hh · h_{t-1} + b_h)",
+                "predictionEq": "y_{t+1} = σ(W_y · h_t + b_y)"
+              }
+            }
+          },
+          "transcript": [
+            {
+              "role": "assistant",
+              "committed": "",
+              "partial": "Hey there. I'm Alex. We're going to do a quick three question rapid fire round for your data analyst application. Looking at your resume analysis, I noticed you have missing experience with running a b test."
+            }
+          ]
+        }
+      ],
+      "dktPrediction": {
+        "totalAttempts": 3,
+        "readinessIndex": 35,
+        "learningRate": "-1.7% / attempt",
+        "predictions": [
+          {
+            "skill": "STAR Method Structure",
+            "predictedMastery": 25,
+            "confidence": "Needs Focus",
+            "status": "🎯 Focus Area: Priority to Improve in Attempt #4",
+            "trend": -15
+          },
+          {
+            "skill": "Technical Challenge Depth",
+            "predictedMastery": 24,
+            "confidence": "Needs Focus",
+            "status": "🎯 Focus Area: Priority to Improve in Attempt #4",
+            "trend": -16
+          },
+          {
+            "skill": "Assertive Communication",
+            "predictedMastery": 63,
+            "confidence": "Moderate Mastery",
+            "status": "📈 Developing Skill: Practice 1 More Round",
+            "trend": 23
+          },
+          {
+            "skill": "Running A/B Tests",
+            "predictedMastery": 30,
+            "confidence": "Needs Focus",
+            "status": "🎯 Focus Area: Priority to Improve in Attempt #4",
+            "trend": -10
+          }
+        ],
+        "latentStateVector": [
+          0.25,
+          0.24,
+          0.63,
+          0.3
+        ],
+        "formulaInfo": {
+          "modelName": "Deep Knowledge Tracing (DKT - Recurrent Knowledge State)",
+          "equation": "h_t = σ(W_hx · x_t + W_hh · h_{t-1} + b_h)",
+          "predictionEq": "y_{t+1} = σ(W_y · h_t + b_y)"
+        }
+      }
+    }
+  ]
+}

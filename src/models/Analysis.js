@@ -32,6 +32,26 @@ const AnalysisSchema = new mongoose.Schema(
       type: Object, // Stores the rewritten JSON to avoid calling AI twice
       default: null,
     },
+    scoringBreakdown: {
+      type: Object, // Hybrid scoring signals: { tfidf, semantic, llm, hybrid }
+      default: null,
+    },
+    atsScore: {
+      type: Object, // ATS simulation result: { total, breakdown, wordCount, ... }
+      default: null,
+    },
+    atsScoreAfterRewrite: {
+      type: Object, // ATS score recomputed after Resume Surgeon optimizes the resume
+      default: null,
+    },
+    interviewTranscript: {
+      type: Array, // Stores the Vapi conversation history
+      default: null,
+    },
+    interviewScorecard: {
+      type: Object, // Structured response quality metrics and feedback
+      default: null,
+    },
   },
   {
     timestamps: true, // Automatically adds createdAt and updatedAt
