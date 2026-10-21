@@ -41,6 +41,30 @@ function DashboardContent() {
     fetchHistory();
   }, [user]);
 
+  async function handleDeleteSession(e, sessionId) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!window.confirm("Are you sure you want to delete this session? This action cannot be undone.")) {
+      return;
+    }
+
+    try {
+      const res = await fetch(`/api/session?id=${sessionId}&uid=${user?.uid || ""}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (data.success) {
+        setHistory((prev) => prev.filter((h) => h._id !== sessionId));
+      } else {
+        alert(data.error || "Failed to delete session");
+      }
+    } catch (err) {
+      console.error("Delete session error:", err);
+      alert("Failed to delete session. Please try again.");
+    }
+  }
+
   // Compute Progress Intelligence
   const totalSessions = history.length;
   const avgScore = totalSessions > 0 
@@ -252,13 +276,26 @@ function DashboardContent() {
                     <div>
                       <div className="flex justify-between items-start mb-3">
                         <h3 className="text-white font-semibold line-clamp-1 group-hover:text-white transition-colors">{item.jobTitle}</h3>
-                        <span className={`text-xs font-bold px-2.5 py-1 rounded-md shrink-0 ml-3 ${
-                          item.matchScore >= 75 ? "bg-[var(--accent-green)]/10 text-[var(--accent-green)] border border-[var(--accent-green)]/20" :
-                          item.matchScore >= 50 ? "bg-[var(--accent-amber)]/10 text-[var(--accent-amber)] border border-[var(--accent-amber)]/20" :
-                          "bg-[var(--accent-red)]/10 text-[var(--accent-red)] border border-[var(--accent-red)]/20"
-                        }`}>
-                          {item.matchScore} / 100
-                        </span>
+                        <div className="flex items-center gap-2 shrink-0 ml-3">
+                          <span className={`text-xs font-bold px-2.5 py-1 rounded-md ${
+                            item.matchScore >= 75 ? "bg-[var(--accent-green)]/10 text-[var(--accent-green)] border border-[var(--accent-green)]/20" :
+                            item.matchScore >= 50 ? "bg-[var(--accent-amber)]/10 text-[var(--accent-amber)] border border-[var(--accent-amber)]/20" :
+                            "bg-[var(--accent-red)]/10 text-[var(--accent-red)] border border-[var(--accent-red)]/20"
+                          }`}>
+                            {item.matchScore} / 100
+                          </span>
+                          <button
+                            type="button"
+                            onClick={(e) => handleDeleteSession(e, item._id)}
+                            title="Delete session"
+                            aria-label="Delete session"
+                            className="p-1 rounded-md text-[var(--text-muted)] hover:text-rose-400 hover:bg-rose-500/10 transition-colors"
+                          >
+                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                          </button>
+                        </div>
                       </div>
                       <p className="text-[var(--text-secondary)] text-xs line-clamp-2 mb-3 leading-relaxed">
                         {item.gapAnalysis?.verdict || "No verdict available"}

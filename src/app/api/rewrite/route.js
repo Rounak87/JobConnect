@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { GoogleGenAI } from "@google/genai";
 import connectToDatabase from "@/lib/mongodb";
 import Analysis from "@/models/Analysis";
 import { computeATSScore } from "@/lib/scoring";
+import { generateGeminiContent } from "@/lib/gemini";
 import {
   Document,
   Packer,
@@ -13,8 +13,6 @@ import {
   BorderStyle,
   SectionType,
 } from "docx";
-
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 const REWRITE_PROMPT = `You are an expert resume writer. You will be given a candidate's resume text, a job description, and a gap analysis.
 
@@ -78,36 +76,18 @@ const MODELS = [
 ];
 
 async function callGeminiWithFallback(prompt, systemInstruction) {
-  let lastError = null;
-
-  for (const model of MODELS) {
-    try {
-      console.log(`[Rewrite] Trying model: ${model}`);
-      const response = await ai.models.generateContent({
-        model,
-        contents: prompt,
-        config: {
-          systemInstruction,
-          responseMimeType: "application/json",
-        },
-      });
-      console.log(`[Rewrite] ✓ Success with model: ${model}`);
-      return { response, usedModel: model };
-    } catch (err) {
-      lastError = err;
-      console.warn(`[Rewrite] ✗ ${model} failed:`, JSON.stringify({
-        status: err?.status,
-        code: err?.code,
-        message: err?.message?.substring(0, 200),
-        name: err?.name,
-      }));
-      
-      continue;
-    }
+  try {
+    const res = await generateGeminiContent({
+      contents: prompt,
+      systemInstruction,
+      responseMimeType: "application/json",
+      models: MODELS,
+    });
+    return { response: res.response, usedModel: res.usedModel };
+  } catch (err) {
+    console.error("[Rewrite] All AI models and keys failed:", err);
+    return { response: null, usedModel: null };
   }
-  
-  console.error("[Rewrite] All AI models failed. Last error:", lastError);
-  return { response: null, usedModel: null };
 }
 
 function buildDocx(data) {

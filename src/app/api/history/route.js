@@ -20,18 +20,14 @@ export async function GET(request) {
         const history = await Analysis.find({ userId: userDoc._id })
           .sort({ createdAt: -1 })
           .lean();
-        
-        if (history && history.length > 0) {
-          return NextResponse.json({ success: true, history });
-        }
+        return NextResponse.json({ success: true, history: history || [] });
       }
+      return NextResponse.json({ success: true, history: [] });
     } catch (dbErr) {
-      console.warn("[HistoryAPI] MongoDB Atlas unavailable, falling back to local file DB.");
+      console.warn("[HistoryAPI] MongoDB error:", dbErr.message);
+      const localHistory = getHistoryFromFileDb(uid);
+      return NextResponse.json({ success: true, history: localHistory });
     }
-
-    // Persistent Local File DB Fallback
-    const localHistory = getHistoryFromFileDb(uid);
-    return NextResponse.json({ success: true, history: localHistory });
   } catch (error) {
     console.error("API /history error:", error);
     const localHistory = getHistoryFromFileDb();

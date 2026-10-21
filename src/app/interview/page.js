@@ -56,13 +56,19 @@ function InterviewContent() {
       setGradingError("");
 
       try {
+        // Ensure partial transcripts aren't lost if the call drops abruptly
+        const finalizedMessages = messages.map(m => ({
+          ...m,
+          committed: m.committed?.trim() ? m.committed : (m.partial || ""),
+        }));
+
         const res = await fetch("/api/interview/score", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             analysisId,
             uid: user?.uid || "local_user",
-            messages,
+            messages: finalizedMessages,
           }),
         });
 
@@ -237,7 +243,7 @@ Question 1: Ask about their most relevant project based on the job description b
 Question 2: Ask a technical question testing one of these areas they need to improve: ${missingSkills || weakMatches || "general web development"}.
 Question 3: A situational question related to the job description.
 
-AFTER QUESTION 3: Give them a quick compliment on their communication, say "That wraps up our quick-fire round. Check your dashboard for detailed feedback. Have a great day!" and end the interview.
+AFTER QUESTION 3: Give them a quick compliment on their communication, say "That wraps up our quick-fire round. Check your dashboard for detailed feedback. Have a great day!" Do not ask any further questions.
 
 JOB DESCRIPTION SUMMARY:
 ${jobDesc}
@@ -287,16 +293,6 @@ START BY SAYING EXACTLY: "Hi there! Thanks for joining. I'm Alex, and I'll be yo
 
     if (assistantId) {
       vapiRef.current.start(assistantId, {
-        model: {
-          provider: "google",
-          model: isQuickfire ? "gemini-2.5-flash" : "gemini-2.5-pro",
-          messages: [
-            {
-              role: "system",
-              content: systemPrompt,
-            },
-          ],
-        },
         firstMessage: firstMsg,
         variableValues: {
           jobTitle: session.gapAnalysis?.jobTitle || "Developer",

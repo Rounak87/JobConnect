@@ -1,6 +1,4 @@
-import { GoogleGenAI } from "@google/genai";
-
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+import { generateGeminiContent } from "@/lib/gemini";
 
 const FILLER_WORDS = ["um", "uh", "like", "you know", "basically", "literally", "sort of", "kind of"];
 const HEDGE_PHRASES = ["i think", "maybe", "i'm not sure", "probably", "i guess", "i believe"];
@@ -196,16 +194,14 @@ Return ONLY valid JSON. No explanations, no markdown code blocks.`;
   const userPrompt = `JOB DESCRIPTION:\n${jobDescription}\n\nTRANSCRIPT:\n${transcriptText}`;
 
   try {
-    const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
+    const res = await generateGeminiContent({
       contents: userPrompt,
-      config: {
-        systemInstruction: systemPrompt,
-        responseMimeType: "application/json",
-      },
+      systemInstruction: systemPrompt,
+      responseMimeType: "application/json",
+      models: ["gemini-2.5-flash", "gemini-2.5-pro"],
     });
 
-    return JSON.parse(response.text);
+    return JSON.parse(res.text);
   } catch (err) {
     console.error("[InterviewScorer] LLM evaluation failed:", err);
     // Return mock/default grades in case of API failure

@@ -52,10 +52,20 @@ const AnalysisSchema = new mongoose.Schema(
       type: Object, // Structured response quality metrics and feedback
       default: null,
     },
+    interviewHistory: {
+      type: Array, // Stores all interview attempts across retakes
+      default: [],
+    },
+    dktPrediction: {
+      type: Object, // Deep Knowledge Tracing state & predictions
+      default: null,
+    },
   },
   {
     timestamps: true, // Automatically adds createdAt and updatedAt
   }
 );
+
+AnalysisSchema.index({ userId: 1, createdAt: -1 });
 
 export default mongoose.models.Analysis || mongoose.model("Analysis", AnalysisSchema);

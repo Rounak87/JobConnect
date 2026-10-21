@@ -236,22 +236,27 @@ export async function computeSemanticScore(resumeText, jobDescription) {
     }
   }
 
-  // 2. Fallback using Gemini Embeddings API (text-embedding-004)
+  // 2. Fallback using Gemini Embeddings API (gemini-embedding-001)
   try {
-    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+    const key = process.env.GEMINI_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+    const ai = new GoogleGenAI({ apiKey: key });
     const [resEmbed, jdEmbed] = await Promise.all([
       ai.models.embedContent({
-        model: "text-embedding-004",
+        model: "gemini-embedding-001",
         contents: resumeText.substring(0, 800),
       }),
       ai.models.embedContent({
-        model: "text-embedding-004",
+        model: "gemini-embedding-001",
         contents: jobDescription.substring(0, 800),
       }),
     ]);
 
-    const vecA = resEmbed.embedding.values;
-    const vecB = jdEmbed.embedding.values;
+    const vecA = resEmbed.embeddings?.[0]?.values || resEmbed.embedding?.values;
+    const vecB = jdEmbed.embeddings?.[0]?.values || jdEmbed.embedding?.values;
+
+    if (!vecA || !vecB) {
+      throw new Error("Invalid embedding vector returned");
+    }
 
     let dot = 0, normA = 0, normB = 0;
     for (let i = 0; i < vecA.length; i++) {
@@ -262,7 +267,7 @@ export async function computeSemanticScore(resumeText, jobDescription) {
     const cosSim = normA && normB ? dot / (Math.sqrt(normA) * Math.sqrt(normB)) : 0.75;
     return Math.round(Math.max(0.5, Math.min(0.98, cosSim)) * 100);
   } catch (err) {
-    console.warn("[Scoring] Gemini embedding fallback failed, returning deterministic score:", err);
+    console.warn("[Scoring] Gemini embedding fallback failed, returning deterministic score:", err?.message || err);
     // 3. Robust fallback value so semantic signal is never missing in UI
     const tfidfRes = computeTfIdfScore(resumeText, jobDescription);
     return Math.min(92, Math.max(60, tfidfRes.score + 15));

@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { GoogleGenAI } from "@google/genai";
 import mammoth from "mammoth";
 import connectToDatabase from "@/lib/mongodb";
 import User from "@/models/User";
 import Analysis from "@/models/Analysis";
+import { generateGeminiContent } from "@/lib/gemini";
 import {
   computeTfIdfScore,
   computeSemanticScore,
@@ -12,8 +12,6 @@ import {
 } from "@/lib/scoring";
 import { saveSessionToCache } from "@/lib/sessionCache";
 import { saveAnalysisToFileDb } from "@/lib/fileDb";
-
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 const ANALYSIS_PROMPT = `You are an expert resume analyst and career coach. You will be given a candidate's resume text and a job description. Analyze how well the resume matches the job description.
 
@@ -79,51 +77,24 @@ export async function POST(request) {
       );
     }
 
-    // Call Gemini with model fallback chain
+    // Call Gemini with dual-key rotation and multi-model fallback
     const userPrompt = `RESUME TEXT:\n${resumeText}\n\n---\n\nJOB DESCRIPTION:\n${jobDescription}`;
-
-    const MODELS = [
-      "gemini-2.5-flash",
-      "gemini-2.5-pro",
-      "gemini-3.1-pro-preview",
-    ];
 
     let response = null;
     let usedModel = null;
-    let lastError = null;
 
-    for (const model of MODELS) {
-      try {
-        console.log(`[Analyze] Trying model: ${model}`);
-        response = await ai.models.generateContent({
-          model,
-          contents: userPrompt,
-          config: {
-            systemInstruction: ANALYSIS_PROMPT,
-            responseMimeType: "application/json",
-          },
-        });
-        usedModel = model;
-        console.log(`[Analyze] ✓ Success with: ${model}`);
-        break;
-      } catch (err) {
-        lastError = err;
-        // Log the FULL error so we can debug
-        console.warn(`[Analyze] ✗ ${model} failed:`, JSON.stringify({
-          status: err?.status,
-          code: err?.code,
-          message: err?.message?.substring(0, 200),
-          name: err?.name,
-        }));
-        // ALWAYS try next model — don't stop on any error
-        continue;
-      }
-    }
-
-    if (!response) {
-      const errMsg = lastError?.message?.substring(0, 300) || "Unknown error";
+    try {
+      const geminiResult = await generateGeminiContent({
+        contents: userPrompt,
+        systemInstruction: ANALYSIS_PROMPT,
+        responseMimeType: "application/json",
+      });
+      response = geminiResult.response;
+      usedModel = geminiResult.usedModel;
+    } catch (geminiError) {
+      console.error("[Analyze] Gemini call failed:", geminiError);
       return NextResponse.json(
-        { error: `All AI models failed. Last error: ${errMsg}` },
+        { error: `AI analysis service temporarily unavailable: ${geminiError.message}` },
         { status: 429 }
       );
     }
@@ -186,32 +157,35 @@ export async function POST(request) {
       createdAt: new Date(),
     };
 
-    // Always save to persistent local file DB as fallback
+    // Save directly to primary MongoDB Atlas
     let analysisId = null;
-    const localRecord = saveAnalysisToFileDb({
-      uid: uid || "local_user",
-      ...sessionPayload,
-    });
-    analysisId = String(localRecord._id);
-    saveSessionToCache(analysisId, sessionPayload);
-
-    if (uid) {
-      try {
-        await connectToDatabase();
-        const userDoc = await User.findOne({ firebaseUid: uid });
-        
-        if (userDoc) {
-          const doc = await Analysis.create({
-            userId: userDoc._id,
-            ...sessionPayload,
-          });
-          analysisId = String(doc._id);
-          saveSessionToCache(analysisId, sessionPayload);
-          console.log("[Analyze] ✓ Saved analysis to MongoDB for user:", userDoc.email);
-        }
-      } catch (dbError) {
-        console.warn("[Analyze] ⚠️ MongoDB Atlas unavailable, saved session to local persistent file DB.");
+    try {
+      await connectToDatabase();
+      const effectiveUid = uid || "local_user";
+      let userDoc = await User.findOne({ firebaseUid: effectiveUid });
+      if (!userDoc) {
+        userDoc = await User.create({
+          firebaseUid: effectiveUid,
+          email: effectiveUid === "local_user" ? "guest@jobconnect.local" : `${effectiveUid}@jobconnect.local`,
+          displayName: effectiveUid === "local_user" ? "Guest User" : "JobConnect User",
+        });
       }
+
+      const doc = await Analysis.create({
+        userId: userDoc._id,
+        ...sessionPayload,
+      });
+      analysisId = String(doc._id);
+      saveSessionToCache(analysisId, sessionPayload);
+      console.log("[Analyze] ✓ Saved analysis directly to MongoDB:", analysisId, "for user:", userDoc.email);
+    } catch (dbError) {
+      console.error("[Analyze] MongoDB write error:", dbError.message);
+      const localRecord = saveAnalysisToFileDb({
+        uid: uid || "local_user",
+        ...sessionPayload,
+      });
+      analysisId = localRecord ? String(localRecord._id) : `session_${Date.now()}`;
+      saveSessionToCache(analysisId, sessionPayload);
     }
 
     return NextResponse.json({

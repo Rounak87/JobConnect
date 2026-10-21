@@ -29,6 +29,7 @@ async function connectToDatabase() {
       bufferCommands: false,
       serverSelectionTimeoutMS: 5000, // Fail fast — don't hang for 30s
       connectTimeoutMS: 5000,
+      dbName: process.env.MONGODB_DB || "connectjob",
     };
 
     cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {

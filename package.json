@@ -9,9 +9,10 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@daily-co/daily-js": "^0.92.2",
     "@google/genai": "^1.50.1",
     "@google/generative-ai": "^0.24.1",
-    "@vapi-ai/web": "^2.5.2",
+    "@vapi-ai/web": "^2.7.0",
     "docx": "^9.6.1",
     "file-saver": "^2.0.5",
     "firebase": "^12.12.0",

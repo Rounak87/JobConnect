@@ -150,10 +150,10 @@ export default function ResultsView({
   interviewHistory,
 }) {
   const [activeTab, setActiveTab] = useState("resume"); // "resume" | "interview"
-  const hybridScore = scoringBreakdown?.hybrid?.hybridScore ?? result.matchScore ?? 0;
+  const hybridScore = scoringBreakdown?.hybrid?.hybridScore ?? result?.matchScore ?? 0;
   const tfidfScore = scoringBreakdown?.tfidf?.score ?? 55;
   const tfidf = scoringBreakdown?.tfidf;
-  const llmScore = scoringBreakdown?.llm ?? result.matchScore ?? 0;
+  const llmScore = scoringBreakdown?.llm ?? result?.matchScore ?? 0;
   const semanticScore = scoringBreakdown?.semantic ?? 78;
   const atsBefore = atsScore?.total ?? 0;
   const atsBreakdownBefore = atsScore?.breakdown;
@@ -223,7 +223,7 @@ export default function ResultsView({
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `resume_${(result.jobTitle || "optimized").replace(/[^a-zA-Z0-9]/g, "_").toLowerCase()}.docx`;
+      a.download = `resume_${(result?.jobTitle || "optimized").replace(/[^a-zA-Z0-9]/g, "_").toLowerCase()}.docx`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -243,7 +243,7 @@ export default function ResultsView({
         <div className="animate-fade-in-up flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
           <div>
             <p className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider mb-1">Analysis Results</p>
-            <h1 className="text-3xl font-bold text-white">{result.jobTitle || "Resume Analysis"}</h1>
+            <h1 className="text-3xl font-bold text-white">{result?.jobTitle || "Resume Analysis"}</h1>
           </div>
           {onReset && (
             <button onClick={onReset} className="btn-secondary text-sm px-5 py-2.5" id="new-analysis-btn">
@@ -320,7 +320,7 @@ export default function ResultsView({
                     <div>
                       <h3 className="text-lg font-bold text-white mb-1">Interview Performance Evaluated!</h3>
                       <p className="text-xs text-[var(--text-secondary)]">
-                        Targeting role: <strong className="text-white">{result.jobTitle || "Developer"}</strong>. Evaluated across 6 technical & behavioral dimensions.
+                        Targeting role: <strong className="text-white">{result?.jobTitle || "Developer"}</strong>. Evaluated across 6 technical & behavioral dimensions.
                       </p>
                     </div>
                   </div>
@@ -625,7 +625,7 @@ export default function ResultsView({
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {(result.missingSkills || []).map((item, i) => {
+                    {(result?.missingSkills || []).map((item, i) => {
                       const skillName = typeof item === "string" ? item : item.skill;
                       const isCovered = (interviewScorecard.keywordCoverage?.matchedKeywords || []).some(
                         (k) => k.toLowerCase() === skillName.toLowerCase()
@@ -752,7 +752,7 @@ export default function ResultsView({
               <SignalBar label="Semantic Similarity" sublabel="Embedding cosine similarity (MiniLM)" score={semanticScore} weight="β = 0.30" color="#a78bfa" />
               <SignalBar label="LLM Contextual Score" sublabel="Gemini reasoning — semantic + structural fit" score={llmScore} weight="γ = 0.50" color="#34d399" />
             </div>
-            <p className="text-xs text-[var(--text-secondary)] leading-relaxed mt-4 pt-4 border-t border-[#1a1a1a]">{result.verdict}</p>
+            <p className="text-xs text-[var(--text-secondary)] leading-relaxed mt-4 pt-4 border-t border-[#1a1a1a]">{result?.verdict}</p>
           </div>
         </div>
 
@@ -968,13 +968,13 @@ export default function ResultsView({
 
         {/* ── Skills 3-Column ── */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-6">
-          <SkillCol title="Strong Matches" items={result.strongMatches} dot="var(--accent-green)" delay="0.2s"
+          <SkillCol title="Strong Matches" items={result?.strongMatches} dot="var(--accent-green)" delay="0.2s"
             renderItem={(item, i) => <SkillCard key={i} skill={item.skill} detail={item.detail} color="var(--accent-green)" />}
           />
-          <SkillCol title="Undersold" items={result.weakMatches} dot="var(--accent-amber)" delay="0.25s"
+          <SkillCol title="Undersold" items={result?.weakMatches} dot="var(--accent-amber)" delay="0.25s"
             renderItem={(item, i) => <SkillCard key={i} skill={item.skill} detail={item.detail} color="var(--accent-amber)" />}
           />
-          <SkillCol title="Missing" items={result.missingSkills} dot="var(--accent-red)" delay="0.3s"
+          <SkillCol title="Missing" items={result?.missingSkills} dot="var(--accent-red)" delay="0.3s"
             renderItem={(item, i) => (
               <div key={i} className="glass-card px-4 py-3">
                 <div className="flex items-center justify-between mb-0.5">
@@ -992,11 +992,11 @@ export default function ResultsView({
         </div>
 
         {/* Keywords */}
-        {result.keywordsToAdd?.length > 0 && (
+        {result?.keywordsToAdd?.length > 0 && (
           <div className="animate-fade-in-up mb-6" style={{ animationDelay: "0.35s" }}>
             <h2 className="text-sm font-semibold text-white mb-3">Keywords to Add</h2>
             <div className="flex flex-wrap gap-2">
-              {result.keywordsToAdd.map((kw, i) => (
+              {result?.keywordsToAdd?.map((kw, i) => (
                 <span key={i} className="px-3 py-1.5 rounded-lg text-xs font-medium bg-[#111] text-[#ccc] border border-[#222] hover:text-white hover:border-[#444] transition-colors">{kw}</span>
               ))}
             </div>

@@ -39,10 +39,13 @@ export async function POST(request) {
         session = await Analysis.findOne({
           _id: analysisId,
           userId: userDoc._id,
-        });
+        }).lean();
+      }
+      if (!session) {
+        session = await Analysis.findById(analysisId).lean();
       }
     } catch (dbErr) {
-      console.warn("[InterviewScore] ⚠️ MongoDB Atlas connection failed, using local file/cache session.");
+      console.warn("[InterviewScore] ⚠️ MongoDB Atlas connection/query failed:", dbErr.message);
     }
 
     // Fallback to in-memory session cache or persistent file DB
@@ -116,7 +119,10 @@ export async function POST(request) {
     };
 
     // Build attempt history record for tracking progress across retakes
-    let existingHistory = Array.isArray(session.interviewHistory) ? session.interviewHistory : [];
+    let existingHistory = session.interviewHistory || [];
+    if (!Array.isArray(existingHistory)) {
+      existingHistory = Array.from(existingHistory);
+    }
     
     // If Attempt 1 was previously saved in interviewScorecard but not in interviewHistory array, preserve Attempt 1
     if (existingHistory.length === 0 && session.interviewScorecard) {

@@ -1,10 +1,8 @@
 import { NextResponse } from "next/server";
-import { GoogleGenAI } from "@google/genai";
 import connectToDatabase from "@/lib/mongodb";
 import Analysis from "@/models/Analysis";
 import { computeATSScore } from "@/lib/scoring";
-
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+import { generateGeminiContent } from "@/lib/gemini";
 
 const REWRITE_PROMPT = `You are an expert resume writer. You will be given a candidate's resume text, a job description, and a gap analysis.
 
@@ -99,42 +97,31 @@ export async function POST(request) {
       }
     }
 
-    // 2. If no cache, call Gemini
+    // 2. If no cache, call Gemini with failover
     if (!rewrittenData) {
       const userPrompt = `RESUME TEXT:\n${resumeText}\n\n---\n\nJOB DESCRIPTION:\n${jobDescription}\n\n---\n\nGAP ANALYSIS:\n${JSON.stringify(analysis, null, 2)}`;
 
-      let response = null;
-      for (const model of MODELS) {
-        try {
-          console.log(`[RewriteJSON] Trying model: ${model}`);
-          response = await ai.models.generateContent({
-            model,
-            contents: userPrompt,
-            config: {
-              systemInstruction: REWRITE_PROMPT,
-              responseMimeType: "application/json",
-            },
-          });
-          console.log(`[RewriteJSON] ✓ Success with: ${model}`);
-          break;
-        } catch (err) {
-          console.warn(`[RewriteJSON] ✗ ${model} failed:`, err?.message?.substring(0, 100));
-          continue;
-        }
-      }
-
-      if (!response) {
+      let responseText = null;
+      try {
+        const geminiResult = await generateGeminiContent({
+          contents: userPrompt,
+          systemInstruction: REWRITE_PROMPT,
+          responseMimeType: "application/json",
+        });
+        responseText = geminiResult.text;
+      } catch (geminiError) {
+        console.error("[RewriteJSON] Gemini call failed:", geminiError);
         return NextResponse.json(
-          { error: "All AI models are currently unavailable. Please try again." },
+          { error: `AI rewrite service temporarily unavailable: ${geminiError.message}` },
           { status: 429 }
         );
       }
 
       try {
-        rewrittenData = JSON.parse(response.text);
+        rewrittenData = JSON.parse(responseText);
       } catch {
         return NextResponse.json(
-          { error: "AI returned invalid data. Please try again." },
+          { error: "AI returned invalid data format. Please try again." },
           { status: 500 }
         );
       }
@@ -172,6 +159,15 @@ export async function POST(request) {
     ].filter(Boolean).join("\n");
 
     const atsAfter = computeATSScore(rewrittenFullText, jobDescription, true);
+
+    if (analysisId) {
+      try {
+        await connectToDatabase();
+        await Analysis.findByIdAndUpdate(analysisId, { atsScoreAfterRewrite: atsAfter });
+      } catch (dbErr) {
+        console.warn("[RewriteJSON] Failed to cache atsScoreAfterRewrite to MongoDB:", dbErr);
+      }
+    }
 
     return NextResponse.json({ success: true, rewrittenData, atsAfter });
   } catch (error) {
